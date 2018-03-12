@@ -11,11 +11,8 @@ public class Function {
 
     public void add(double x, double y) {
         list.add(new Pair(x, y));
-    }
+    } //для добавления пары по значениям
 
-    public void add(Pair pair) {
-        list.add(pair);
-    }
 
     public void remove(double x) {
         for (Pair<Double, Double> pair : list) {
