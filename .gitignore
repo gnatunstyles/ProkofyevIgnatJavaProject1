@@ -25,7 +25,6 @@ hs_err_pid*
 .idea/vcs.xml
 .idea/workspace.xml
 out/
-/src/Function.java
 .idea/compiler.xml
 .idea/libraries/
 src/org/

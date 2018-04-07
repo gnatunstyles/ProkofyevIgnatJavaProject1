@@ -10,25 +10,52 @@ public class Function {
         map = new TreeMap<>();
     }
 
+    /**
+     * Add new point
+     *
+     * @param x coordinate in the axis of abscissa
+     * @param y coordinate in the axis of ordinate
+     */
     public void add(double x, double y) {
-        map.put(x, y);
+        if (!map.containsKey(x))
+            map.put(x, y);
     }
 
+    /**
+     * @return copy of function multiple
+     */
     public TreeMap getMultiple() {
         return new TreeMap<>(map);
     }
 
+    /**
+     * Removes point by coordinate in the axis of abscissa
+     *
+     * @param x coordinate in the axis of abscissa
+     */
     public void remove(double x) {
         if (map.containsKey(x)) map.remove(x);
     }
 
-
+    /**
+     * Searches the coordinate in the axis of ordinate
+     * by the coordinate in the axis of abscissa
+     * @param x coordinate in the axis of abscissa
+     * @return coordinate in the axis of ordinate if it exists,
+     * or null if it does not
+     */
     public Double search(double x) {
         if (map.containsKey(x))
             return map.get(x);
         return null;
     }
 
+    /**
+     * Searches the nearest coordinate in the axis of ordinate
+     *
+     * @param x coordinate in the axis of abscissa
+     * @return the nearest value in the given point
+     */
     public Double searchNearest(double x) {
         if (x < map.firstKey()) return map.firstEntry().getValue();
         if (x > map.lastKey()) return map.lastEntry().getValue();
@@ -37,6 +64,12 @@ public class Function {
         return Math.abs(x - floor) < Math.abs(x - ceiling) ? map.get(floor) : map.get(ceiling);
     }
 
+    /**
+     * Interpolate value of the function by the Lagrange's method
+     *
+     * @param x coordinate in the axis of abscissa
+     * @return interpolated value
+     */
     public Double interpolate(double x) {
         double result = 0;
         for (Map.Entry entryI : map.entrySet()) {
