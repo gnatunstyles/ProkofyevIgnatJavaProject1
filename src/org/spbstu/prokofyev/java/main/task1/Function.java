@@ -1,4 +1,4 @@
-package org.spbstu.prokofyev.task1;
+package org.spbstu.prokofyev.java.main.task1;
 
 import java.util.Map;
 import java.util.TreeMap;
@@ -40,6 +40,7 @@ public class Function {
     /**
      * Searches the coordinate in the axis of ordinate
      * by the coordinate in the axis of abscissa
+     *
      * @param x coordinate in the axis of abscissa
      * @return coordinate in the axis of ordinate if it exists,
      * or null if it does not
@@ -57,11 +58,13 @@ public class Function {
      * @return the nearest value in the given point
      */
     public Double searchNearest(double x) {
-        if (x < map.firstKey()) return map.firstEntry().getValue();
-        if (x > map.lastKey()) return map.lastEntry().getValue();
-        double floor = map.floorKey(x);
-        double ceiling = map.ceilingKey(x);
-        return Math.abs(x - floor) < Math.abs(x - ceiling) ? map.get(floor) : map.get(ceiling);
+        if (!map.isEmpty()) {
+            if (x < map.firstKey()) return map.firstEntry().getValue();
+            if (x > map.lastKey()) return map.lastEntry().getValue();
+            double floor = map.floorKey(x);
+            double ceiling = map.ceilingKey(x);
+            return Math.abs(x - floor) < Math.abs(x - ceiling) ? map.get(floor) : map.get(ceiling);
+        } else return null;
     }
 
     /**
@@ -72,19 +75,21 @@ public class Function {
      */
     public Double interpolate(double x) {
         double result = 0;
-        for (Map.Entry entryI : map.entrySet()) {
-            double basicsPolynomial = 1.0;
-            for (Map.Entry entryJ : map.entrySet()) {
-                if (entryJ.getKey() != entryI.getKey()) {
-                    basicsPolynomial *= (x - (double) entryJ.getKey()) /
-                            ((double) entryI.getKey() - (double) entryJ.getKey());
+        if (!map.isEmpty()) {
+            for (Map.Entry entryI : map.entrySet()) {
+                double basicsPolynomial = 1.0;
+                for (Map.Entry entryJ : map.entrySet()) {
+                    if (entryI.getKey() != entryJ.getKey()) {
+                        basicsPolynomial *= (x - (double) entryJ.getKey()) /
+                                ((double) entryI.getKey() - (double) entryJ.getKey());
+                    }
                 }
+                result += basicsPolynomial * (double) entryI.getValue();
             }
-            result += basicsPolynomial * (double) entryI.getValue();
+            return result;
         }
-        return result;
+        return null;
     }
-
 
     @Override
     public String toString() {

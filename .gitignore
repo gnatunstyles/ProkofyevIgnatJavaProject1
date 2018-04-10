@@ -22,9 +22,9 @@
 hs_err_pid*
 
 .gitignore
-.idea/vcs.xml
-.idea/workspace.xml
+.idea/
 out/
-.idea/compiler.xml
-.idea/libraries/
-src/org/
+ProkofyevIgnatJavaProject1.iml
+
+
+
