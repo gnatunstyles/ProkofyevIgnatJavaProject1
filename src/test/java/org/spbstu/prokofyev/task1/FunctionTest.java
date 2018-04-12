@@ -1,8 +1,8 @@
-package org.spbstu.prokofyev.java.test;
+package org.spbstu.prokofyev.task1;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.spbstu.prokofyev.java.main.task1.Function;
+import org.spbstu.prokofyev.task1.Function;
 
 import java.util.TreeMap;
 
@@ -76,8 +76,8 @@ class FunctionTest {
         fun.add(2.0, -1.0);
         fun.searchNearest(3.0);
         assertEquals(-1.0, (double) fun.searchNearest(3.0));
-        assertEquals(-1.0, (double) fun.searchNearest(Double.MAX_VALUE));
-        assertEquals(-4.0, (double) fun.searchNearest(-Double.MAX_VALUE));
+        assertEquals(-1.0, (double) fun.searchNearest(Double.POSITIVE_INFINITY));
+        assertEquals(-4.0, (double) fun.searchNearest(Double.NEGATIVE_INFINITY));
     }
 
     @Test
@@ -90,6 +90,21 @@ class FunctionTest {
         fun.add(4.0, 6.0);
         fun.add(2.0, 9.0);
         assertEquals(7.5, (double) fun.interpolate(3.0));
+    }
+
+    @Test
+    void interpolateMore() {
+        fun.add(0.0, 0.0);
+        fun.add(2.0, 1.0);
+        fun.add(6.0, 8.0);
+        assertEquals(2.125, (double) fun.interpolate(3.0));
+    }
+
+    @Test
+    void extrapolate() {
+        fun.add(4.0, 6.0);
+        fun.add(2.0, 9.0);
+        assertEquals(-138.0, (double) fun.interpolate(100.0));
     }
 
     @Test

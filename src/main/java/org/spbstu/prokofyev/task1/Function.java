@@ -1,4 +1,4 @@
-package org.spbstu.prokofyev.java.main.task1;
+package org.spbstu.prokofyev.task1;
 
 import java.util.Map;
 import java.util.TreeMap;
