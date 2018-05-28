@@ -3,44 +3,92 @@ package org.spbstu.prokofyev.task2;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
-import java.io.PrintStream;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Collections;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
 class Tests {
+    Methods method;
 
     @Test
-    void output() throws Exception {
-        String[] command = "-l -r -h -o output testFiles".split(" ");
-        ls.main(command);
-        String expect = new String(Files.readAllBytes(Paths.get("expected/fileOutput.txt")));
-        String actual = new String(Files.readAllBytes(Paths.get("output.txt")));
-        assertEquals(expect, actual);
+    void testGetTime() {
+        method = new Methods(false, true, false, false, null);
+        File file = new File("expected/fileString.txt");
+        String actual = method.getTime(file);
+        SimpleDateFormat time = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss ");
+        String expected = time.format(file.lastModified());
+        assertEquals(expected, actual);
     }
 
     @Test
-    void fileList() throws Exception {
-        String[] command = "testFiles".split(" ");
-        PrintStream o = new PrintStream(new File("fileListOutput.txt"));
-        System.setOut(o);
-        ls.main(command);
-        String expect = new String(Files.readAllBytes(Paths.get("expected/fileList.txt")));
-        String actual = new String(Files.readAllBytes(Paths.get("fileListOutput.txt")));
-
-        assertEquals(expect, actual);
+    void testGetFile() {
+        method = new Methods(false, true, false, false, null);
+        File file = new File("expected/fileString.txt");
+        ArrayList<File> actual = method.getFile(file);
+        ArrayList<File> expected = new ArrayList<>();
+        expected.add(file);
+        assertEquals(expected, actual);
     }
 
     @Test
-    void fileString() throws Exception {
-        String[] command = "-l -r -h testFiles".split(" ");
-        PrintStream o = new PrintStream(new File("fileStringOutput.txt"));
-        System.setOut(o);
-        ls.main(command);
-        String expect = new String(Files.readAllBytes(Paths.get("expected/fileString.txt")));
-        String actual = new String(Files.readAllBytes(Paths.get("fileStringOutput.txt")));
-        assertEquals(expect, actual);
+    void testGetFile2() {
+        method = new Methods(false, true, false, false, null);
+        File file = new File("expected");
+        ArrayList<File> actual = method.getFile(file);
+        ArrayList<File> expected = new ArrayList<>();
+        Collections.addAll(expected, file.listFiles());
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void testGetRights() {
+        method = new Methods(false, true, false, false, null);
+        File file = new File("expected");
+        String actual = method.getRights(file);
+        String expected = "rwx";
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void testGetRights2() {
+        method = new Methods(true, false, false, false, null);
+        File file = new File("expected");
+        String actual = method.getRights(file);
+        String expected = "111";
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void testHumanReadable() {
+        method = new Methods(true, true, false, false, null);
+        File file = new File("expected");
+        String actual = method.getHumanReadableLength(file);
+        String expected = "4KB ";
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void testHumanReadable2() {
+        method = new Methods(true, false, false, false, null);
+        File file = new File("expected");
+        String actual = method.getHumanReadableLength(file);
+        String expected = "4096B ";
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void testGetFileInfo() {
+        method = new Methods(false, false, false, false, null);
+        File file = new File("expected");
+        ArrayList<String> actual = method.getFileInfo(file);
+        ArrayList<String> expected = new ArrayList<>();
+        expected.add("fileList.txt file");
+        expected.add("fileOutput.txt file");
+        expected.add("fileString.txt file");
+        assertEquals(expected, actual);
     }
 }
