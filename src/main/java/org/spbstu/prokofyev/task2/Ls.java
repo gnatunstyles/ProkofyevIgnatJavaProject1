@@ -15,7 +15,7 @@ public class Ls {
 
         CommandLineParser parser = new DefaultParser();
         CommandLine lines = null;
-        try{
+        try {
             lines = parser.parse(options, args);
         } catch (ParseException e) {
             System.exit(1);
@@ -28,8 +28,7 @@ public class Ls {
 
         String outputFile = o ? lines.getOptionValue("o") : null;
         List<String> directories = lines.getArgList();
-
-        Methods Ls = new Methods(l,h,r,o,outputFile);
+        Methods Ls = new Methods(l, h, r, o, outputFile);
         Ls.getInfo(directories);
     }
 }

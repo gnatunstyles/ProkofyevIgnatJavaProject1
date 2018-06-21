@@ -65,9 +65,9 @@ class Tests {
     @Test
     void testHumanReadable() {
         method = new Methods(true, true, false, false, null);
-        File file = new File("expected/fileList.txt");
+        File file = new File("expected");
         String actual = method.getHumanReadableLength(file);
-        String expected = "24B ";
+        String expected = "4KB ";
         assertEquals(expected, actual);
     }
 
