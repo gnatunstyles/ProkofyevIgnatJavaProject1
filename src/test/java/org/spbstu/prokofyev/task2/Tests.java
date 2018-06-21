@@ -17,7 +17,7 @@ class Tests {
     @Test
     void testGetTime() {
         method = new Methods(false, true, false, false, null);
-        File file = new File("expected/fileString.txt");
+        File file = new File("src/test/java/expected/fileString.txt");
         String actual = method.getTime(file);
         SimpleDateFormat time = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss ");
         String expected = time.format(file.lastModified());
@@ -27,7 +27,7 @@ class Tests {
     @Test
     void testGetFile() {
         method = new Methods(false, true, false, false, null);
-        File file = new File("expected/fileString.txt");
+        File file = new File("src/test/java/expected/fileString.txt");
         ArrayList<File> actual = method.getFile(file);
         ArrayList<File> expected = new ArrayList<>();
         expected.add(file);
@@ -37,7 +37,7 @@ class Tests {
     @Test
     void testGetFile2() {
         method = new Methods(false, true, false, false, null);
-        File file = new File("expected");
+        File file = new File("src/test/java/expected");
         ArrayList<File> actual = method.getFile(file);
         ArrayList<File> expected = new ArrayList<>();
         Collections.addAll(expected, file.listFiles());
@@ -47,7 +47,7 @@ class Tests {
     @Test
     void testGetRights() {
         method = new Methods(false, true, false, false, null);
-        File file = new File("expected");
+        File file = new File("src/test/java/expected");
         String actual = method.getRights(file);
         String expected = "rwx";
         assertEquals(expected, actual);
@@ -56,7 +56,7 @@ class Tests {
     @Test
     void testGetRights2() {
         method = new Methods(true, false, false, false, null);
-        File file = new File("expected");
+        File file = new File("src/test/java/expected");
         String actual = method.getRights(file);
         String expected = "111";
         assertEquals(expected, actual);
@@ -65,7 +65,7 @@ class Tests {
     @Test
     void testHumanReadable() {
         method = new Methods(true, true, false, false, null);
-        File file = new File("expected");
+        File file = new File("src/test/java/expected");
         String actual = method.getHumanReadableLength(file);
         String expected = "4KB ";
         assertEquals(expected, actual);
@@ -74,7 +74,7 @@ class Tests {
     @Test
     void testHumanReadable2() {
         method = new Methods(true, false, false, false, null);
-        File file = new File("expected");
+        File file = new File("src/test/java/expected");
         String actual = method.getHumanReadableLength(file);
         String expected = "4096B ";
         assertEquals(expected, actual);
@@ -83,7 +83,7 @@ class Tests {
     @Test
     void testGetFileInfo() {
         method = new Methods(false, false, false, false, null);
-        File file = new File("expected");
+        File file = new File("src/test/java/expected");
         ArrayList<String> actual = method.getFileInfo(file);
         ArrayList<String> expected = new ArrayList<>();
         expected.add("fileList.txt file");
